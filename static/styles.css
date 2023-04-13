@@ -978,3 +978,11 @@ img {
 .header__right ul li a.active {
   color: #ffa700;
 }
+
+ /* post */
+
+ .tags {
+  padding: 15rem 0;
+  background: red ;
+ }
+  

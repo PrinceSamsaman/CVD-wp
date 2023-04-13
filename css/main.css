@@ -706,15 +706,15 @@
     font-style: italic;
   }
   
-  .services-page:nth-child(3) {
+  .services-page:nth-child(even) {
     background-color: #2b2b2b;
   }
   
-  .services-page:nth-child(3) .services-page-wrapper {
+  .services-page:nth-child(even) .services-page-wrapper {
     flex-direction: row-reverse;
   }
   
-  .services-page:nth-child(3) .services-page-content {
+  .services-page:nth-child(even) .services-page-content {
     color: #fff;
   }
   
@@ -939,9 +939,7 @@
     }
   }
   
-  
-  
-  
+ 
   
   
   
@@ -978,3 +976,11 @@
   .header__right ul li a.active {
     color: #ffa700;
   }
+
+   /* post */
+
+ .tags {
+  padding: 15rem 0;
+  background: red ;
+ }
+  

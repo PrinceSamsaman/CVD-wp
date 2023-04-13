@@ -14,7 +14,7 @@
                 <p><?php echo get_field('updates_text'); ?></p>
             </div>
             <div class="updates-wrapper">               
-                <div class="updates-left">
+                <!-- <div class="updates-left">
                     <?php if(have_rows('up_repeat')): while(the_repeater_field('up_repeat')): ?>
                     <div class="updates-left-item">
                         <?php 
@@ -23,9 +23,9 @@
                         <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
                         <?php endif;?>
                         <ul>
-                            <li><i class="fa-solid fa-user"></i><?php echo get_sub_field('up_name'); ?></li>
+                            <li><i class="fa-solid fa-user"></i> <?php echo get_sub_field('up_name'); ?></li>
                             <li><i class="fa-solid fa-calendar"></i> <?php echo get_the_date('M-d-Y')?></li>
-                            <li><i class="fa-solid fa-tags"></i><?php echo get_sub_field('up_choices'); ?></li>
+                            <li><i class="fa-solid fa-tags"></i> <?php echo get_sub_field('up_choices'); ?></li>
                         </ul>
                         <h4><?php echo get_sub_field('up_title'); ?></h4>
                         <p><?php echo get_sub_field('up_content'); ?></p>
@@ -38,12 +38,51 @@
                     endif;
                     wp_reset_postdata();
                     ?>
-                </div>
+                </div> -->
+
+
+                    <div class="updates-left-item">
+
+                    <?php
+                    $args = array(
+                        'post_type' => 'cvdPost',
+                        'posts_per_page' => 2,
+                        'tax_query'      => array(
+                            array(
+                            'taxonomy'  =>  'category',
+                            'field'     =>  'slug',
+                            'terms'     =>  'updates'
+                            ),
+                        ),
+                    );
+                    $newQuery = new WP_Query($args);
+                    ?>
+
+                    <?php if($newQuery->have_posts()) : while($newQuery->have_posts()) : $newQuery->the_post(); ?>
+                        <?php echo get_the_post_thumbnail()?>
+                        <ul>
+                            <li><i class="fa-solid fa-user"></i> Prince Samsaman</li>
+                            <li><i class="fa-solid fa-calendar"></i> March 15, 2023</li>
+                            <li><i class="fa-solid fa-tags"></i> Web Design | Wire Frame</li>
+                        </ul>
+                        <h4><?php the_title(); ?></h4>
+                        <p><?php the_excerpt(); ?></p>
+                        <a href="<?php the_permalink(); ?>">Read more...</a>
+                    <?php
+                    endwhile;
+                        else:
+                            echo "no available post yet";
+                        endif;
+                            wp_reset_postdata();
+                    ?>
+                    
+                    </div>
+
                 
                 <div class="updates-right">
 
                     <div class="updates-right-item">
-                        <h4>Categories</h4>
+                        <h4><?php echo get_field('rec_title') ?></h4>
                         <table>
                             <?php if(have_rows('rec_categs')): while(the_repeater_field('rec_categs')): ?>
                             <tr>
@@ -63,7 +102,7 @@
                     </div>
 
                     <div class="updates-right-item">
-                        <h4>Recent Post</h4>
+                        <h4><?php echo get_field('recent_title') ?></h4>
                         <?php if(have_rows('recent_repeat')): while(the_repeater_field('recent_repeat')): ?>
                         <div class="updates-right-content">
                             <?php 
@@ -86,7 +125,7 @@
                     </div>
 
                     <div class="updates-right-item">
-                        <h4>Tags</h4>
+                        <h4><?php echo get_field('tags_title') ?></h4>
 
                         <div class="updates-a">
                             <?php if(have_rows('tags_btn')): while(the_repeater_field('tags_btn')): ?>
